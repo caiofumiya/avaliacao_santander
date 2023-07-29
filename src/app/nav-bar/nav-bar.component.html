@@ -1,9 +1,25 @@
-<h1>Menu</h1>
-<nav>
-  <a routerLink="/listagem-usuarios" routerLinkActive="active" ariaCurrentWhenActive="page">Listagem de usuários</a>
-  <a routerLink="/criar-usuario" routerLinkActive="active" ariaCurrentWhenActive="page">Criar usuário</a>
-  <a routerLink="/buscar-usuario" routerLinkActive="active" ariaCurrentWhenActive="page">Buscar usuários</a>
-  <a routerLink="/atualizar-usuario" routerLinkActive="active" ariaCurrentWhenActive="page">Atualizar usuário</a>
-</nav>
-<router-outlet></router-outlet>
-
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+        <mat-list>
+            <mat-list-item>
+                <a routerLink="/listagem-usuarios" routerLinkActive="active" ariaCurrentWhenActive="page">Listagem de usuários</a>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+                <a routerLink="/criar-usuario" routerLinkActive="active" ariaCurrentWhenActive="page">Criar usuário</a>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+                <a routerLink="/buscar-usuario" routerLinkActive="active" ariaCurrentWhenActive="page">Buscar usuários</a>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+                <a routerLink="/atualizar-usuario" routerLinkActive="active" ariaCurrentWhenActive="page">Atualizar usuário</a>
+            </mat-list-item>
+        </mat-list>
+    </mat-drawer>
+  
+    <div class="example-sidenav-content">
+        <router-outlet></router-outlet>
+    </div>
+</mat-drawer-container>

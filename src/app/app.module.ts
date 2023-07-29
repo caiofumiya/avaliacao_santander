@@ -11,6 +11,11 @@ import { BuscarUsuarioComponent } from './buscar-usuario/buscar-usuario.componen
 import { CriarUsuarioComponent } from './criar-usuario/criar-usuario.component';
 import { AtualizarUsuarioComponent } from './atualizar-usuario/atualizar-usuario.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -24,7 +29,12 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatSidenavModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
