@@ -1,1 +1,82 @@
-<p>criar-usuario works!</p>
+<mat-card class="main-container">
+    <mat-card-content>
+        <h1>Criar novo usuário</h1>
+        <form class="example-form" [formGroup]="formUsuario" (ngSubmit)="onSubmit()">
+            <mat-form-field>
+                <mat-label>Selecione como quer ser chamado</mat-label>
+                <mat-select placeholder="" [formControl]="formsControls.title">
+                    <mat-option *ngFor="let title of titles" [value]="title">{{title}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Nome</mat-label>
+                <input matInput formControlName="firstName">
+                <mat-error *ngIf="formsControls.firstName.hasError('required')">
+                    Nome é <strong>obrigatório</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Sobrenome</mat-label>
+                <input matInput formControlName="lastName">
+                <mat-error *ngIf="formsControls.lastName.hasError('required')">
+                    Sobrenome é <strong>obrigatório</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Email</mat-label>
+              <input type="email" matInput placeholder="Ex. exemplo@email.com" formControlName="email">
+              <mat-error *ngIf="formsControls.email.hasError('email') && !formsControls.email.hasError('required')">
+                E-mail inválido
+              </mat-error>
+              <mat-error *ngIf="formsControls.email.hasError('required')">
+                E-mail é <strong>obrigatório</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Selecione seu gênero</mat-label>
+                <mat-select placeholder="" [formControl]="formsControls.gender">
+                    <mat-option *ngFor="let gender of genders" [value]="gender">{{gender}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Data de nascimento</mat-label>
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" [formControl]="formsControls.dateOfBirth">
+                <mat-hint>DD/MM/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field >
+                <mat-label>Telefone</mat-label>
+                <input [formControl]="formsControls.phone" type="tel" matInput placeholder="999999999">
+            </mat-form-field>
+            <mat-form-field >
+                <mat-label>Link foto de perfil</mat-label>
+                <input [formControl]="formsControls.picture" type="url" matInput placeholder="www.url.com.br">
+            </mat-form-field>
+            <mat-form-field >
+                <mat-label>Endereço</mat-label>
+                <input [formControl]="formsControls.street" type="text" matInput placeholder="Rua, bairro, Nº">
+            </mat-form-field>
+            <mat-form-field >
+                <mat-label>Cidade</mat-label>
+                <input [formControl]="formsControls.city" type="text" matInput>
+            </mat-form-field>
+            <mat-form-field >
+                <mat-label>Estado</mat-label>
+                <input [formControl]="formsControls.state" type="text" matInput>
+            </mat-form-field>
+            <mat-form-field >
+                <mat-label>País</mat-label>
+                <input [formControl]="formsControls.country" type="text" matInput>
+            </mat-form-field>
+
+            <div class="buttons-container">
+                <button mat-raised-button color="primary" type="submit" [disabled]="formUsuario.status == 'INVALID'">Criar usuário</button>
+                <a mat-stroked-button (click)="limparForms()">Limpar</a>
+            </div>
+        </form>
+        
+        
+    </mat-card-content>
+</mat-card>
+
