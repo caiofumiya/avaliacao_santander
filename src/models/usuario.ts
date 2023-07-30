@@ -1,11 +1,17 @@
-export class Usuario{
-    title: string = '';
-    firstName: string = '';
-    lastName: string = '';
-    gender: string = '';
-    email: string = '';
-    dateOfBirth: Date = new Date();
-    phone: string = '';
-    picture: string = '';
-    location: string = '';
+export interface Usuario{
+    title: string;
+    firstName: string;
+    lastName: string;
+    gender: string;
+    email: string;
+    dateOfBirth: string;
+    phone: string;
+    picture: string;
+    location: {
+        street: string;
+        city: string;
+        state: string;
+        country: string;
+        timezone: string;
+    };
 }

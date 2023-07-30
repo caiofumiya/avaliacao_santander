@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormGroup} from '@angular/forms';
+import { FormControl, Validators, FormGroup} from '@angular/forms';
 import { Usuario } from 'src/models/usuario';
 
 @Component({
@@ -33,16 +33,12 @@ export class CriarUsuarioComponent {
   formUsuario!: FormGroup;
 
   ngOnInit() {
-    this.createForm(new Usuario());
-  }
-
-  createForm(user: Usuario) {
     this.formUsuario = new FormGroup(this.formsControls);
   }
 
   limparForms() {
     console.log(this.formUsuario)
-    this.createForm(new Usuario());
+    this.formUsuario.reset();
   }
 
   onSubmit() {
@@ -65,6 +61,6 @@ export class CriarUsuarioComponent {
 
     console.log(dadosUsuario);
 
-    this.createForm(new Usuario());
+    this.formUsuario.reset();
   }
 }
