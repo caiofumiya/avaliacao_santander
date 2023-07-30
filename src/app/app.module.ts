@@ -18,6 +18,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatDividerModule,
     MatListModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

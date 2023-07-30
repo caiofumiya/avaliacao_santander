@@ -369,7 +369,7 @@ const USER_DATA: DadosListaUsuarios[] = [
   styleUrls: ['./listagem-usuarios.component.scss']
 })
 export class ListagemUsuariosComponent {
-  displayedColumns: string[] = ["id", "title", "firstName", "lastName"];
+  displayedColumns: string[] = ["id", "title", "firstName", "lastName", "picture", "actions"];
   dataSource = new MatTableDataSource<DadosListaUsuarios>(USER_DATA);
 
   @ViewChild(MatPaginator)
