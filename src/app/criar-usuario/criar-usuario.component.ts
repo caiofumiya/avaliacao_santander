@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormGroup} from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
 import { Usuario } from 'src/models/usuario';
 
 @Component({
@@ -20,9 +19,9 @@ export class CriarUsuarioComponent {
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    title: new FormControl(this.titles),
-    gender: new FormControl(this.genders),
-    dateOfBirth: new FormControl(new Date()),
+    title: new FormControl(""),
+    gender: new FormControl(""),
+    dateOfBirth: new FormControl(""),
     phone: new FormControl(''),
     picture: new FormControl(''),
     street: new FormControl(''),
@@ -55,8 +54,6 @@ export class CriarUsuarioComponent {
     let dadosUsuario = { 
       ...rawDadosUsuario,
       dateOfBirth: rawDadosUsuario.dateOfBirth.toISOString(),
-      title: (typeof(rawDadosUsuario.title) == "string" ) ? rawDadosUsuario.title : "",
-      gender: (typeof(rawDadosUsuario.gender) == "string" ) ? rawDadosUsuario.gender : "",
       location: {
         street: rawDadosUsuario.street,
         city: rawDadosUsuario.city,
