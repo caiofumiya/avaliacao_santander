@@ -8,7 +8,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 const routes: Routes = [
   { path: 'listagem-usuarios', component: ListagemUsuariosComponent },
   { path: 'criar-usuario', component: CriarUsuarioComponent },
-  { path: 'atualizar-usuario', component: AtualizarUsuarioComponent },
+  { path: 'atualizar-usuario/:id', component: AtualizarUsuarioComponent },
   { path: '',   redirectTo: '/listagem-usuarios', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

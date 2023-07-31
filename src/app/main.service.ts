@@ -35,7 +35,6 @@ export class MainService {
 
   openDialog(titulo: string, mensagem: any): void {
     this.dialog.open(DialogComponent, {
-      //width: '250px',
       data: {
         titulo: titulo,
         mensagem: mensagem
@@ -46,24 +45,6 @@ export class MainService {
   createUser(newUserData: Usuario): any {
 
     let createRespoonse;
-
-    // const usuarioTeste: Usuario = { 
-    //   title: "mrs",
-    //   firstName: "caio",
-    //   lastName: "Fumiya",
-    //   gender: "male",
-    //   email: "caio2@fumiya.com",
-    //   dateOfBirth: "1960-08-20T08:36:37.039Z",
-    //   phone: "999999999",
-    //   picture: "https://randomuser.me/api/portraits/women/12.jpg",
-    //   location: {
-    //     street: "Rua Joao, Belem, 555",
-    //     city: "São Paulo",
-    //     state: "São Paulo",
-    //     country: "São Paulo",
-    //     timezone: "3"
-    //   }
-    // };
 
     const options = {
       method: 'POST',
@@ -80,7 +61,6 @@ export class MainService {
         }else {
           this.openDialog("Sucesso", "E-mail: "+createRespoonse.email +" registrado com sucesso");
         }
-
       })
       .catch(err => {
         console.error(err);
@@ -89,4 +69,25 @@ export class MainService {
 
   }
 
+  async getUser(id: string): Promise<any>{
+    
+    const options = {method: 'GET', headers: {'app-id': '64b53aabc898804a50d2af57'}};
+
+    return await fetch("https://dummyapi.io/data/v1/user/"+id, options)
+                    .then(response => response.json())
+      
+  }
+  
+  async updateUser(updatedUserData: Promise<any>) {
+    const options = {
+      method: 'PUT',
+      headers: {'app-id': '64b53aabc898804a50d2af57', 'Content-Type': 'application/json'},
+      body: JSON.stringify(updatedUserData)
+    };
+    
+    fetch('https://dummyapi.io/data/v1/user/64c18d68a3f2a012655b6301', options)
+      .then(response => response.json())
+      .then(response => console.log(response))
+      .catch(err => console.error(err));
+  }
 }

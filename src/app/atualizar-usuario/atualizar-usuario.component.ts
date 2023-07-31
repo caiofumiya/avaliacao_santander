@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators, FormGroup} from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Usuario } from 'src/models/usuario';
+import { MainService } from '../main.service';
 
 @Component({
   selector: 'app-atualizar-usuario',
@@ -13,50 +15,23 @@ export class AtualizarUsuarioComponent {
   genders = ["" ,"male", "female", "other"];
   minDate = new Date( 1900, 0, 0);
   maxDate = new Date();
+  formsControls: any;
+  formUsuario!: FormGroup;
+  userId: any;
 
-  formsControls = {
-    firstName: new FormControl('', [Validators.required]),
-    lastName: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    title: new FormControl(""),
-    gender: new FormControl(""),
-    dateOfBirth: new FormControl(""),
-    phone: new FormControl(''),
-    picture: new FormControl(''),
-    street: new FormControl(''),
-    city: new FormControl(''),
-    state: new FormControl(''),
-    country: new FormControl('')
-  };
-
-  massaTesteUpdate = {
-    "id": "60d0fe4f5311236168a10a01",
-    "title": "mr",
-    "firstName": "Jesus",
-    "lastName": "Riley",
-    "picture": "https://randomuser.me/api/portraits/med/men/45.jpg",
-    "gender": "male",
-    "email": "jesus.riley@example.com",
-    "dateOfBirth": "1960-08-20T08:36:37.039Z",
-    "phone": "02-2018-4571",
-    "location": {
-      "street": "6786, Pecan Acres Ln",
-      "city": "Perth",
-      "state": "New South Wales",
-      "country": "Australia",
-      "timezone": "+4:30"
-    },
-    "registerDate": "2021-06-21T21:02:16.799Z",
-    "updatedDate": "2021-06-21T21:02:16.799Z"
+  constructor( 
+    private route: ActivatedRoute,
+    private mainService: MainService
+  ) {
+    this.route.params.subscribe(params => this.userId = params['id']);
   }
-
 
   initFormsPreenchido = (dadosUsuario: Usuario) => {
     
     this.formsControls = {
       firstName: new FormControl(dadosUsuario.firstName, [Validators.required]),
       lastName: new FormControl(dadosUsuario.lastName, [Validators.required]),
-      email: new FormControl(dadosUsuario.email, [Validators.required, Validators.email]),
+      email: new FormControl({value: dadosUsuario.email, disabled: true}, [Validators.required, Validators.email]),
       title: new FormControl(dadosUsuario.title),
       gender: new FormControl(dadosUsuario.gender),
       dateOfBirth: new FormControl(dadosUsuario.dateOfBirth),
@@ -68,30 +43,48 @@ export class AtualizarUsuarioComponent {
       country: new FormControl(dadosUsuario.location.country)
     }
 
+    this.formUsuario = new FormGroup(this.formsControls);
   }
 
-  formUsuario!: FormGroup;
-
   ngOnInit() {
-    this.initFormsPreenchido(this.massaTesteUpdate);
-    this.formUsuario = new FormGroup(this.formsControls);
+    this.mainService.getUser(this.userId)
+      .then(response => {
+        console.log(response);
+        this.initFormsPreenchido(response);
+      });
   }
 
   onSubmit() {
 
-    let rawDadosUsuarioAtualizados = this.formUsuario.value;
+    let rawDadosUsuario = this.formUsuario.value;
+
+    if (rawDadosUsuario.title === "") {
+      delete rawDadosUsuario.title;
+    }
+    if (rawDadosUsuario.gender === "") {
+      delete rawDadosUsuario.gender;
+    }
+    if (rawDadosUsuario.phone === "") {
+      delete rawDadosUsuario.phone;
+    }
+    if (rawDadosUsuario.dateOfBirth === "") {
+      delete rawDadosUsuario.dateOfBirth;
+    }else{
+      rawDadosUsuario = rawDadosUsuario.dateOfBirth.toISOString();
+    }
 
     let dadosUsuario = { 
-      ...rawDadosUsuarioAtualizados,
-      dateOfBirth: rawDadosUsuarioAtualizados.dateOfBirth.toISOString(),
+      ...rawDadosUsuario,
       location: {
-        street: rawDadosUsuarioAtualizados.street,
-        city: rawDadosUsuarioAtualizados.city,
-        state: rawDadosUsuarioAtualizados.state,
-        country: rawDadosUsuarioAtualizados.country,
+        street: rawDadosUsuario.street,
+        city: rawDadosUsuario.city,
+        state: rawDadosUsuario.state,
+        country: rawDadosUsuario.country,
         timezone: ((new Date()).getTimezoneOffset()/60),
       }
     }
+
+    //this.mainService.createUser(dadosUsuario)
 
     this.formUsuario.reset();
   }

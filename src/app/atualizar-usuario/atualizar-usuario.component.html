@@ -1,7 +1,8 @@
 <mat-card class="main-container">
     <mat-card-content>
         <h1>Atualizar dados do usuário</h1>
-        <form class="example-form" [formGroup]="formUsuario" (ngSubmit)="onSubmit()">
+        <mat-spinner *ngIf="!formUsuario"></mat-spinner>
+        <form class="example-form" [formGroup]="formUsuario" (ngSubmit)="onSubmit()" *ngIf="formUsuario">
             <mat-form-field>
                 <mat-label>Selecione como quer ser chamado</mat-label>
                 <mat-select placeholder="" [formControl]="formsControls.title">

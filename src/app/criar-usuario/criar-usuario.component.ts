@@ -36,19 +36,8 @@ export class CriarUsuarioComponent {
   formUsuario!: FormGroup;
 
   constructor(
-    private mainService: MainService,
-    public dialog: MatDialog
+    private mainService: MainService
   ) { }
-
-  openDialog(titulo: string, mensagem: any): void {
-    this.dialog.open(DialogComponent, {
-      //width: '250px',
-      data: {
-        titulo: titulo,
-        mensagem: mensagem
-      }
-    });
-  }
 
   ngOnInit() {
     this.formUsuario = new FormGroup(this.formsControls);
@@ -89,7 +78,6 @@ export class CriarUsuarioComponent {
     }
 
     this.mainService.createUser(dadosUsuario)
-    
 
     this.formUsuario.reset();
   }
