@@ -44,8 +44,6 @@ export class MainService {
 
   createUser(newUserData: Usuario): any {
 
-    let createRespoonse;
-
     const options = {
       method: 'POST',
       headers: {'app-id': '64b53aabc898804a50d2af57', 'Content-Type': 'application/json'},
@@ -55,16 +53,14 @@ export class MainService {
     fetch('https://dummyapi.io/data/v1/user/create', options)
       .then(response => response.json())
       .then(response => {
-        createRespoonse = response;
         if (response.hasOwnProperty('error')){
           this.openDialog("Erro na criação do usuário", JSON.stringify(response.data))
         }else {
-          this.openDialog("Sucesso", "E-mail: "+createRespoonse.email +" registrado com sucesso");
+          this.openDialog("Sucesso", "E-mail: "+response.email +" registrado com sucesso");
         }
       })
       .catch(err => {
         console.error(err);
-        createRespoonse = err;
       });
 
   }
@@ -78,16 +74,24 @@ export class MainService {
       
   }
   
-  async updateUser(updatedUserData: Promise<any>) {
+  async updateUser(updatedUserData: any, userId: string): Promise<any>{
     const options = {
       method: 'PUT',
       headers: {'app-id': '64b53aabc898804a50d2af57', 'Content-Type': 'application/json'},
       body: JSON.stringify(updatedUserData)
     };
     
-    fetch('https://dummyapi.io/data/v1/user/64c18d68a3f2a012655b6301', options)
+    fetch("https://dummyapi.io/data/v1/user/"+ userId, options)
       .then(response => response.json())
-      .then(response => console.log(response))
-      .catch(err => console.error(err));
+      .then(response => {
+        if (response.hasOwnProperty('error')){          
+          this.openDialog("Erro na atualização dos dados do usuário", JSON.stringify(response.data))
+        }else {
+          this.openDialog("Sucesso", "ID: "+userId +" atualizado com sucesso");
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }
 }

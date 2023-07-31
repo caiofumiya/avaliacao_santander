@@ -49,7 +49,6 @@ export class AtualizarUsuarioComponent {
   ngOnInit() {
     this.mainService.getUser(this.userId)
       .then(response => {
-        console.log(response);
         this.initFormsPreenchido(response);
       });
   }
@@ -57,6 +56,8 @@ export class AtualizarUsuarioComponent {
   onSubmit() {
 
     let rawDadosUsuario = this.formUsuario.value;
+    
+    delete rawDadosUsuario.email;
 
     if (rawDadosUsuario.title === "") {
       delete rawDadosUsuario.title;
@@ -70,7 +71,9 @@ export class AtualizarUsuarioComponent {
     if (rawDadosUsuario.dateOfBirth === "") {
       delete rawDadosUsuario.dateOfBirth;
     }else{
-      rawDadosUsuario = rawDadosUsuario.dateOfBirth.toISOString();
+      if (typeof rawDadosUsuario.dateOfBirth === "object") {
+        rawDadosUsuario = rawDadosUsuario.dateOfBirth.toISOString();
+      }
     }
 
     let dadosUsuario = { 
@@ -84,8 +87,6 @@ export class AtualizarUsuarioComponent {
       }
     }
 
-    //this.mainService.createUser(dadosUsuario)
-
-    this.formUsuario.reset();
+    this.mainService.updateUser(dadosUsuario,this.userId)
   }
 }
