@@ -69,15 +69,11 @@ export class MainService {
       method: 'POST',
       headers: {'app-id': '64b53aabc898804a50d2af57', 'Content-Type': 'application/json'},
       body: JSON.stringify(newUserData)
-    };
-
-    console.log(options);
-    
+    };   
     
     fetch('https://dummyapi.io/data/v1/user/create', options)
       .then(response => response.json())
       .then(response => {
-        console.log(response);
         createRespoonse = response;
         if (response.hasOwnProperty('error')){
           this.openDialog("Erro na criação do usuário", JSON.stringify(response.data))

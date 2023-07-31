@@ -93,8 +93,6 @@ export class AtualizarUsuarioComponent {
       }
     }
 
-    console.log(dadosUsuario);
-
     this.formUsuario.reset();
   }
 }

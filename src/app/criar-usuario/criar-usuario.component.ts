@@ -55,7 +55,6 @@ export class CriarUsuarioComponent {
   }
 
   limparForms() {
-    console.log(this.formUsuario)
     this.formUsuario.reset();
   }
 
@@ -90,16 +89,6 @@ export class CriarUsuarioComponent {
     }
 
     this.mainService.createUser(dadosUsuario)
-      // .then((resposta: { hasOwnProperty: (arg0: string) => any; data: any; }) => {
-      //   console.log(resposta);
-      //   if (resposta.hasOwnProperty('error')){
-      //     this.openDialog("Erro na criação do usuário", resposta.data)
-      //   }
-      // })
-
-    
-    
-
     
 
     this.formUsuario.reset();
