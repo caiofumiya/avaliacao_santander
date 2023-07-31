@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormControl, Validators, FormGroup} from '@angular/forms';
 import { Usuario } from 'src/models/usuario';
 import { MainService } from '../main.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-criar-usuario',
@@ -34,12 +36,22 @@ export class CriarUsuarioComponent {
   formUsuario!: FormGroup;
 
   constructor(
-    private mainService: MainService
+    private mainService: MainService,
+    public dialog: MatDialog
   ) { }
+
+  openDialog(titulo: string, mensagem: any): void {
+    this.dialog.open(DialogComponent, {
+      //width: '250px',
+      data: {
+        titulo: titulo,
+        mensagem: mensagem
+      }
+    });
+  }
 
   ngOnInit() {
     this.formUsuario = new FormGroup(this.formsControls);
-    //this.mainService.createUser();
   }
 
   limparForms() {
@@ -59,11 +71,15 @@ export class CriarUsuarioComponent {
     }
     if (rawDadosUsuario.phone === "") {
       delete rawDadosUsuario.phone;
-    }  
+    }
+    if (rawDadosUsuario.dateOfBirth === "") {
+      delete rawDadosUsuario.dateOfBirth;
+    }else{
+      rawDadosUsuario = rawDadosUsuario.dateOfBirth.toISOString();
+    }
 
     let dadosUsuario = { 
       ...rawDadosUsuario,
-      dateOfBirth: (rawDadosUsuario.dateOfBirth == '') ? "" : rawDadosUsuario.dateOfBirth.toISOString(),
       location: {
         street: rawDadosUsuario.street,
         city: rawDadosUsuario.city,
@@ -73,7 +89,16 @@ export class CriarUsuarioComponent {
       }
     }
 
-    this.mainService.createUser(dadosUsuario);
+    this.mainService.createUser(dadosUsuario)
+      // .then((resposta: { hasOwnProperty: (arg0: string) => any; data: any; }) => {
+      //   console.log(resposta);
+      //   if (resposta.hasOwnProperty('error')){
+      //     this.openDialog("Erro na criação do usuário", resposta.data)
+      //   }
+      // })
+
+    
+    
 
     
 

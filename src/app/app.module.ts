@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +23,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule, } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from './dialog/dialog.component';
+import { Dialog } from '@angular/cdk/dialog';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
     CriarUsuarioComponent,
     AtualizarUsuarioComponent,
     PageNotFoundComponent,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,11 +55,15 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
     MatCardModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatDialogModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    Dialog
+  ]
 })
 export class AppModule { }

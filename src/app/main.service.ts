@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Usuario } from 'src/models/usuario';
+import { DialogComponent } from './dialog/dialog.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MainService {
 
-  constructor() { }
+  constructor(
+    public dialog: MatDialog
+  ) { }
 
   async listUsers(): Promise<any> {
     const options = {method: 'GET', headers: {'app-id': '64b53aabc898804a50d2af57'}};
@@ -27,6 +31,16 @@ export class MainService {
     } while (lastResponseData.length != 0);
 
     return accumulator;
+  }
+
+  openDialog(titulo: string, mensagem: any): void {
+    this.dialog.open(DialogComponent, {
+      //width: '250px',
+      data: {
+        titulo: titulo,
+        mensagem: mensagem
+      }
+    });
   }
 
   createUser(newUserData: Usuario): any {
@@ -65,13 +79,18 @@ export class MainService {
       .then(response => {
         console.log(response);
         createRespoonse = response;
+        if (response.hasOwnProperty('error')){
+          this.openDialog("Erro na criação do usuário", JSON.stringify(response.data))
+        }else {
+          this.openDialog("Sucesso", "E-mail: "+createRespoonse.email +" registrado com sucesso");
+        }
+
       })
       .catch(err => {
         console.error(err);
         createRespoonse = err;
       });
 
-    return createRespoonse;
   }
 
 }
