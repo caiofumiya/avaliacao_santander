@@ -19,7 +19,6 @@ export class ListagemUsuariosComponent {
     constructor(
         private mainService: MainService
     ) { }
-    
 
     @ViewChild(MatPaginator)
     paginator!: MatPaginator;

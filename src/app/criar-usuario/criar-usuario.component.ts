@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators, FormGroup} from '@angular/forms';
 import { Usuario } from 'src/models/usuario';
+import { MainService } from '../main.service';
 
 @Component({
   selector: 'app-criar-usuario',
@@ -32,8 +33,13 @@ export class CriarUsuarioComponent {
 
   formUsuario!: FormGroup;
 
+  constructor(
+    private mainService: MainService
+  ) { }
+
   ngOnInit() {
     this.formUsuario = new FormGroup(this.formsControls);
+    //this.mainService.createUser();
   }
 
   limparForms() {
@@ -42,8 +48,6 @@ export class CriarUsuarioComponent {
   }
 
   onSubmit() {
-
-    console.log(this.formUsuario.value)
 
     let rawDadosUsuario = this.formUsuario.value;
 
@@ -59,7 +63,7 @@ export class CriarUsuarioComponent {
       }
     }
 
-    console.log(dadosUsuario);
+    this.mainService.createUser(dadosUsuario);
 
     this.formUsuario.reset();
   }
