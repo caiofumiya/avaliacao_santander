@@ -3,6 +3,8 @@ import { FormControl, Validators, FormGroup} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Usuario } from 'src/models/usuario';
 import { MainService } from '../main.service';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-atualizar-usuario',
@@ -21,7 +23,8 @@ export class AtualizarUsuarioComponent {
 
   constructor( 
     private route: ActivatedRoute,
-    private mainService: MainService
+    private mainService: MainService,
+    private dialog: MatDialog
   ) {
     this.route.params.subscribe(params => this.userId = params['id']);
   }
@@ -55,38 +58,48 @@ export class AtualizarUsuarioComponent {
 
   onSubmit() {
 
-    let rawDadosUsuario = this.formUsuario.value;
+    const dialogRef = this.dialog.open(ConfirmDialogComponent,{});
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+
+        let rawDadosUsuario = this.formUsuario.value;
+        
+        delete rawDadosUsuario.email;
+
+        if (rawDadosUsuario.title === "") {
+          delete rawDadosUsuario.title;
+        }
+        if (rawDadosUsuario.gender === "") {
+          delete rawDadosUsuario.gender;
+        }
+        if (rawDadosUsuario.phone === "") {
+          delete rawDadosUsuario.phone;
+        }
+        if (rawDadosUsuario.dateOfBirth === "") {
+          delete rawDadosUsuario.dateOfBirth;
+        }else{
+          if (typeof rawDadosUsuario.dateOfBirth === "object") {
+            rawDadosUsuario = rawDadosUsuario.dateOfBirth.toISOString();
+          }
+        }
+
+        let dadosUsuario = { 
+          ...rawDadosUsuario,
+          location: {
+            street: rawDadosUsuario.street,
+            city: rawDadosUsuario.city,
+            state: rawDadosUsuario.state,
+            country: rawDadosUsuario.country,
+            timezone: ((new Date()).getTimezoneOffset()/60),
+          }
+        }
+
+        this.mainService.updateUser(dadosUsuario,this.userId);
+        
+      }
+    });
+
     
-    delete rawDadosUsuario.email;
-
-    if (rawDadosUsuario.title === "") {
-      delete rawDadosUsuario.title;
-    }
-    if (rawDadosUsuario.gender === "") {
-      delete rawDadosUsuario.gender;
-    }
-    if (rawDadosUsuario.phone === "") {
-      delete rawDadosUsuario.phone;
-    }
-    if (rawDadosUsuario.dateOfBirth === "") {
-      delete rawDadosUsuario.dateOfBirth;
-    }else{
-      if (typeof rawDadosUsuario.dateOfBirth === "object") {
-        rawDadosUsuario = rawDadosUsuario.dateOfBirth.toISOString();
-      }
-    }
-
-    let dadosUsuario = { 
-      ...rawDadosUsuario,
-      location: {
-        street: rawDadosUsuario.street,
-        city: rawDadosUsuario.city,
-        state: rawDadosUsuario.state,
-        country: rawDadosUsuario.country,
-        timezone: ((new Date()).getTimezoneOffset()/60),
-      }
-    }
-
-    this.mainService.updateUser(dadosUsuario,this.userId)
   }
 }

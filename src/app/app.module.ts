@@ -27,6 +27,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import { Dialog } from '@angular/cdk/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     AtualizarUsuarioComponent,
     PageNotFoundComponent,
     DialogComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
