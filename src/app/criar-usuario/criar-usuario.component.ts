@@ -51,9 +51,19 @@ export class CriarUsuarioComponent {
 
     let rawDadosUsuario = this.formUsuario.value;
 
+    if (rawDadosUsuario.title === "") {
+      delete rawDadosUsuario.title;
+    }
+    if (rawDadosUsuario.gender === "") {
+      delete rawDadosUsuario.gender;
+    }
+    if (rawDadosUsuario.phone === "") {
+      delete rawDadosUsuario.phone;
+    }  
+
     let dadosUsuario = { 
       ...rawDadosUsuario,
-      dateOfBirth: rawDadosUsuario.dateOfBirth.toISOString(),
+      dateOfBirth: (rawDadosUsuario.dateOfBirth == '') ? "" : rawDadosUsuario.dateOfBirth.toISOString(),
       location: {
         street: rawDadosUsuario.street,
         city: rawDadosUsuario.city,
@@ -64,6 +74,8 @@ export class CriarUsuarioComponent {
     }
 
     this.mainService.createUser(dadosUsuario);
+
+    
 
     this.formUsuario.reset();
   }
