@@ -3,7 +3,8 @@
     <a class="button-create-user" mat-raised-button color="primary" routerLink="/criar-usuario" routerLinkActive="active" ariaCurrentWhenActive="page">Criar usuário</a>
 </div>
 
-<div class="table-container">
+<mat-spinner *ngIf="!dataSource"></mat-spinner>
+<div class="table-container" [hidden]="dataSource === undefined">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <ng-container matColumnDef="id">

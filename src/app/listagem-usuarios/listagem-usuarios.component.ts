@@ -23,9 +23,11 @@ export class ListagemUsuariosComponent {
     @ViewChild(MatPaginator)
     paginator!: MatPaginator;
 
-    async ngOnInit() {
-        usersList = await this.mainService.listUsers();
-        this.dataSource = new MatTableDataSource<DadosListaUsuarios>(usersList);
-        this.dataSource.paginator = this.paginator;
+    ngOnInit() {
+        this.mainService.listUsers()
+            .then(response => {
+                this.dataSource = new MatTableDataSource<DadosListaUsuarios>(response);
+                this.dataSource.paginator = this.paginator;
+            });
     }
 }
