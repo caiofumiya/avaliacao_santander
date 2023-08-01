@@ -1,5 +1,5 @@
-<mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+<mat-drawer-container class="container" autosize>
+    <mat-drawer #drawer class="sidenav" mode="side" opened>
         <mat-list>
             <mat-list-item>
                 <a routerLink="/listagem-usuarios" mat-button routerLinkActive="active" ariaCurrentWhenActive="page">Listagem de usuários</a>
@@ -11,7 +11,7 @@
         </mat-list>
     </mat-drawer>
   
-    <div class="example-sidenav-content">
+    <div class="sidenav-content">
         <router-outlet></router-outlet>
     </div>
 </mat-drawer-container>
