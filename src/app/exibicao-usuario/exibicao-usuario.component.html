@@ -1,0 +1,79 @@
+<div class="button-container">
+    <button mat-fab color="primary" aria-label="Voltar" routerLink="/listagem-usuarios"> 
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+</div>
+<mat-spinner *ngIf="!userData"></mat-spinner>
+<div *ngIf="userData">
+    <mat-card>
+        <mat-card-header class="card-header">
+            <div> 
+                <img [src]="userData.picture" /> 
+            </div>
+            <div class = "name-main-container">
+                <mat-card-title>{{userData.title}} {{userData.firstName}} {{userData.lastName}}</mat-card-title>
+                <mat-card-subtitle>{{userData.email}}</mat-card-subtitle>
+                <mat-card-subtitle>{{userData.id}}</mat-card-subtitle>
+            </div>
+        </mat-card-header>
+        <mat-card-content>
+            <div>
+                <b>First name</b>
+                <p>{{userData.firstName}}</p>
+            </div>
+            <div>
+                <b>Last name</b>
+                        <p>{{userData.lastName}}</p>
+            </div>
+            <div>
+                <b>Gender</b>
+                <p>{{userData.gender}}</p>
+            </div>
+            <div>
+                <b>E-mail</b>
+                <p>{{userData.email}}</p>
+            </div>
+            <div>
+                <b>Data de nascimento</b>
+                <p>{{userData.dateOfBirth}}</p>
+            </div>
+            <div>
+                <b>Telefone</b>
+                <p>{{userData.phone}}</p>
+            </div>
+            <table class="location-container">
+                <tr>
+                    <td>
+                        <b>Street</b>
+                        <p>{{userData.location.street}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>City</b>
+                        <p>{{userData.location.city}}</p>
+                    </td>
+                    <td>
+                        <b>State</b>
+                        <p>{{userData.location.state}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Country</b>
+                        <p>{{userData.location.country}}</p>
+                    </td>
+                </tr>
+            </table>
+            <div>
+                <b>Data de registro</b>
+                <p>{{userData.registerDate}}</p>
+            </div>
+            <div>
+                <b>Data de atualização</b>
+                <p>{{userData.updatedDate}}</p>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+</div>

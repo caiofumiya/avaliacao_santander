@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators, FormGroup} from '@angular/forms';
-import { Usuario } from 'src/models/usuario';
 import { MainService } from '../main.service';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-criar-usuario',
@@ -63,7 +60,9 @@ export class CriarUsuarioComponent {
     if (rawDadosUsuario.dateOfBirth === "") {
       delete rawDadosUsuario.dateOfBirth;
     }else{
-      rawDadosUsuario = rawDadosUsuario.dateOfBirth.toISOString();
+      if (typeof rawDadosUsuario.dateOfBirth === "object") {
+        rawDadosUsuario.dateOfBirth = rawDadosUsuario.dateOfBirth.toISOString();
+      }
     }
 
     let dadosUsuario = { 

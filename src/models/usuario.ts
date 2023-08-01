@@ -1,4 +1,5 @@
 export interface Usuario{
+    id: string;
     title: string;
     firstName: string;
     lastName: string;
@@ -14,4 +15,6 @@ export interface Usuario{
         country: string;
         timezone: string;
     };
+    registerDate: string;
+    updatedDate: string
 }

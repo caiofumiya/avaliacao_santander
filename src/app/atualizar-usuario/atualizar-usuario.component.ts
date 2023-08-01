@@ -88,7 +88,7 @@ export class AtualizarUsuarioComponent {
           delete rawDadosUsuario.dateOfBirth;
         }else{
           if (typeof rawDadosUsuario.dateOfBirth === "object") {
-            rawDadosUsuario = rawDadosUsuario.dateOfBirth.toISOString();
+            rawDadosUsuario.dateOfBirth = rawDadosUsuario.dateOfBirth.toISOString();
           }
         }
 
