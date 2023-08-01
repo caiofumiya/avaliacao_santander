@@ -25,8 +25,12 @@ export class ListagemUsuariosComponent {
 
     @ViewChild(MatPaginator)
     paginator!: MatPaginator;
-
+    
     ngOnInit() {
+        this.carregarUsuarios();
+    }
+
+    carregarUsuarios() {
         this.mainService.listUsers()
             .then(response => {
                 this.dataSource = new MatTableDataSource<DadosListaUsuarios>(response);
@@ -48,6 +52,7 @@ export class ListagemUsuariosComponent {
         dialogRef.afterClosed().subscribe((confirmed: boolean) => {
             if (confirmed) {
                 this.mainService.deleteUser(id);
+                this.carregarUsuarios();
             }
         });
 

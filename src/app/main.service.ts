@@ -103,8 +103,10 @@ export class MainService {
       .then(response => {
         if (response.hasOwnProperty('error')){          
           this.openDialog("Erro ao deletar usuário: "+ id, JSON.stringify(response.data))
+          return
         }else {
           this.openDialog("Sucesso", "ID: "+id +" deletado");
+          return
         }
       })
       .catch(err => console.error(err));
