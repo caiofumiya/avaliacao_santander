@@ -58,7 +58,15 @@ export class AtualizarUsuarioComponent {
 
   onSubmit() {
 
-    const dialogRef = this.dialog.open(ConfirmDialogComponent,{});
+    const dialogRef = this.dialog.open(ConfirmDialogComponent,{
+      data:{
+        message: "Confirmar atualização de dados ?",
+        buttonText: {
+          ok: 'Salvar',
+          cancel: 'Voltar'
+        }
+      }
+    });
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {

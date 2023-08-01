@@ -94,4 +94,19 @@ export class MainService {
         console.error(err);
       });
   }
+
+  async deleteUser(id:string): Promise<any>{
+    const options = {method: 'DELETE', headers: {'app-id': '64b53aabc898804a50d2af57'}};
+
+    fetch("https://dummyapi.io/data/v1/user/"+id, options)
+      .then(response => response.json())
+      .then(response => {
+        if (response.hasOwnProperty('error')){          
+          this.openDialog("Erro ao deletar usuário: "+ id, JSON.stringify(response.data))
+        }else {
+          this.openDialog("Sucesso", "ID: "+id +" deletado");
+        }
+      })
+      .catch(err => console.error(err));
+  }
 }

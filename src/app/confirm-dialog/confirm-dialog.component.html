@@ -1,7 +1,7 @@
 <div mat-dialog-content>
-  Confirmar atualização de dados ?
+  {{message}}
 </div>
 <div mat-dialog-actions>
-    <button mat-raised-button color="primary" (click)="onConfirmClick()" tabindex="1">Salvar</button>
-	<button mat-raised-button mat-dialog-close tabindex="-1">Voltar</button>
+    <button mat-raised-button color="primary" (click)="onConfirmClick()" tabindex="1">{{confirmButtonText}}</button>
+	<button mat-raised-button mat-dialog-close tabindex="-1">{{cancelButtonText}}</button>
 </div>
